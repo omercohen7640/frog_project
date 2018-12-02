@@ -26,6 +26,9 @@ localparam WATERFALL = 1;
 localparam LOG = 2;
 localparam FROG = 3;
 localparam ENDBANK = 4;
+localparam one_sec = 50000000;
+logic[25:0] counter = 0;
+
 
 localparam LOSE_FREQ = 1111101010;
 localparam WIN_FREQ = 0101010101;
@@ -37,8 +40,20 @@ always @(posedge clk or negedge resetN)
    if ( !resetN )  // Asynchronic reset
 		prState <= LOSE;
    else 		// Synchronic logic FSM
-		prState <= nxtState;
-		
+	begin
+		if (prState == PLAY)
+		begin
+			counter <= one_sec;
+			prState <= nxtState;
+		end
+		if (prState == LOSE || prState == WIN)
+		begin
+			if (counter > 0)
+				counter <= counter -1;
+			else 
+				prState <=nxtState;
+		end
+	end
 	end // always
 	
 always_comb // Update next state and outputs
@@ -73,6 +88,7 @@ always_comb // Update next state and outputs
 									select_mux = FROG;
 									if (endbank_draw_req) //win condition
 										begin
+										
 											nxtState = WIN;
 										end
 								end
