@@ -1,11 +1,12 @@
 //-- Alex Grinshpun Apr 2017
 //-- Dudy Nov 13 2017
 // SystemVerilog version Alex Grinshpun May 2018
+
 module	objects_mux	(	
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
-					input		logic	[7:0] object_to_draw,
+					input		logic	[N-1:0] object_to_draw,
 					input		logic	[7:0] frog_mVGA_RGB, 
 					input		logic	[7:0] waterfall_mVGA_RGB,
 					input		logic	[7:0] background_mVGA_RGB,
@@ -17,12 +18,15 @@ module	objects_mux	(
 );
 
 
-const int	FROG			=	8'b00000001;
-const int	WATERFALL	=	8'b00000011;
-const int	LOG			=	8'b00000100;
+localparam BACKGROUND = 0;
+localparam WATERFALL = 1;
+localparam LOG = 2;
+localparam FROG = 3;
+localparam ENDBANK = 4;
 
 
 logic [7:0] m_mVGA_t;
+localparam N = 3
 
 assign m_mVGA_R	= {m_mVGA_t[7:5], 5'b0}; //-- expand to 8 bits 
 assign m_mVGA_G	= {m_mVGA_t[4:2], 5'b0};

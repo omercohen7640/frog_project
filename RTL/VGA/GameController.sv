@@ -19,7 +19,7 @@ module GameController(
 
 enum logic [2:0] {WIN, LOSE, PLAY} prState, nxtState;
  
-localparam N = 3;//log(number of objects + 1)
+localparam N = 3;//log(number of objects + 1) every updted should be also in the mux input!
 localparam BACKGROUND = 0;
 localparam WATERFALL = 1;
 localparam LOG = 2;
