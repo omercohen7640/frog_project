@@ -37,10 +37,10 @@ logic in_frame_down = 1;
 logic in_frame_left = 1;
 logic in_frame_right = 1;
 
-assign in_frame_up = (ObjectStartY > 0);
-assign in_frame_down = (ObjectStartY <= y_frame - frog_size);
-assign in_frame_left = (ObjectStartX > 0);
-assign in_frame_right = (ObjectStartX <= x_frame - frog_size);
+assign in_frame_down = (ObjectStartY > 0);
+assign in_frame_up = (ObjectStartY <= y_frame - frog_size);
+assign in_frame_right = (ObjectStartX > 0);
+assign in_frame_left = (ObjectStartX <= x_frame - frog_size);
 //
 
 //
@@ -64,7 +64,7 @@ begin
 			end
 		
 		else if (timer_done == 1'b1) begin
-					if (ObjectStartY < y_frame - bank_width) begin
+					if (ObjectStartY < y_frame - bank_width-frog_size) begin
 						ObjectStartX = ObjectStartX - current_speed;
 					end
 					if (left && in_frame_left)  begin

@@ -152,7 +152,7 @@ always_comb // Update next state and outputs
 					end
 					
 			FIFTEEN:begin
-					random = 4'd12;
+					random = 4'd15;
 					if 		(right) 	nxtState = ONE;
 					else if 	(left) 	nxtState = TEN;
 					else if 	(up)		nxtState	= ONE;
