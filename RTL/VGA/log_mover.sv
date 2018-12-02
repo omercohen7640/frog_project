@@ -8,6 +8,7 @@ module	log_mover	(
 					input		logic	CLK,
 					input		logic	RESETn,
 					input		logic	timer_done,
+					input		logic	[3:0] random_1_12,
 					output	logic	[10:0]	ObjectStartX,
 					output	logic	[10:0]	ObjectStartY
 					
@@ -18,10 +19,12 @@ module	log_mover	(
 const int	y_frame	=	479;
 localparam	x_frame	=	639;
 localparam log_size = 20; //value for test
-localparam random = 5; //value for test
 localparam StartX = x_frame;
-localparam StartY = random*log_size;
 localparam current_speed = 1;
+
+logic [10:0] StartY = 100;
+
+assign StartY = random_1_12*log_size;
 
 
 

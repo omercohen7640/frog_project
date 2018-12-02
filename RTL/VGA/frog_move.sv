@@ -8,6 +8,7 @@ module	frog_move	(
 					input		logic	CLK,
 					input		logic	RESETn,
 					input		logic	timer_done,
+					input		logic	reset_position,
 //					input		logic	X_direction,
 //					input		logic	y_direction,
 					input 	logic left,
@@ -44,6 +45,13 @@ begin
 		ObjectStartY	<= StartY;
 		t = StartY;
 	end
+		else if (reset_position)
+			begin
+				ObjectStartX	<= StartX;
+				ObjectStartY	<= StartY;
+				t = StartY;
+			end
+		
 		else if (timer_done == 1'b1) begin
 					if (ObjectStartY < y_frame - bank_width) begin
 						ObjectStartX = ObjectStartX - current_speed;
