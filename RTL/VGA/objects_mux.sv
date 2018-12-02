@@ -6,7 +6,7 @@ module	objects_mux	(
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
-					input		logic	[N-1:0] object_to_draw,
+					input		logic	[7:0] object_to_draw,
 					input		logic	[7:0] frog_mVGA_RGB, 
 					input		logic	[7:0] waterfall_mVGA_RGB,
 					input		logic	[7:0] background_mVGA_RGB,
@@ -26,7 +26,7 @@ localparam ENDBANK = 4;
 
 
 logic [7:0] m_mVGA_t;
-localparam N = 3
+localparam N = 3;
 
 assign m_mVGA_R	= {m_mVGA_t[7:5], 5'b0}; //-- expand to 8 bits 
 assign m_mVGA_G	= {m_mVGA_t[4:2], 5'b0};

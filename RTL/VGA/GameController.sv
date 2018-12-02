@@ -14,12 +14,11 @@ module GameController(
 	input logic clk, resetN,
 	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, 
 	output logic win, lose,
-	output logic [N-1:0] select_mux // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
+	output logic [7:0] select_mux // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
 );
 
 enum logic [2:0] {WIN, LOSE, PLAY} prState, nxtState;
  
-localparam N = 3;//log(number of objects + 1) every updted should be also in the mux input!
 localparam BACKGROUND = 0;
 localparam WATERFALL = 1;
 localparam LOG = 2;
