@@ -7,6 +7,7 @@ module	objects_mux	(
 					input		logic	CLK,
 					input		logic	RESETn,
 					input		logic	[7:0] object_to_draw,
+					input		logic	[7:0] endbank_mVGA_RGB,
 					input		logic	[7:0] frog_mVGA_RGB, 
 					input		logic	[7:0] waterfall_mVGA_RGB,
 					input		logic	[7:0] background_mVGA_RGB,
@@ -45,6 +46,7 @@ begin
 				WATERFALL:	m_mVGA_t <= waterfall_mVGA_RGB;
 				FROG:			m_mVGA_t <= frog_mVGA_RGB;
 				LOG:			m_mVGA_t <= log_mVGA_RGB;
+				ENDBANK:		m_mVGA_t <= endbank_mVGA_RGB;
 				default:		m_mVGA_t	<= background_mVGA_RGB; //if not any object then output <= background
 		endcase 
 	end
