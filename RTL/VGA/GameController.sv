@@ -10,21 +10,27 @@
 //hit frog and end bank
 
 
-int const int N = 3;//log(number of objects)
-module controller
-	(
-	input logic clk, resetN, waterfall_draw_req, frog_draw_req, gateA_draw_req, gateB_draw_req, french_draw_req, endbank_draw_req, log_draw_req, tank_draw_req //tank- air tank that helps the frog to dive
-	output logic win, lose, play, dive;
-	output logic [N-1:1] select_mux // object select number defined by its place on the input raw when. example: waterfall is 0, frog is 1.
-   );
+module GameController(
+	input logic clk, resetN,
+	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, 
+	output logic win, lose,
+	output logic [N-1:0] select_mux // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
+);
 
-	enum logic [2:0] {WIN, LOSE, DIVE, PLAY} prState, nxtState;
- 	
+enum logic [2:0] {WIN, LOSE, PLAY} prState, nxtState;
+ 
+localparam N = 3;//log(number of objects + 1)
+localparam BACKGROUND = 0;
+localparam WATERFALL = 1;
+localparam LOG = 2;
+localparam FROG = 3;
+localparam ENDBANK = 4;
+ 
 always @(posedge clk or negedge resetN)
    begin
 	   
    if ( !resetN )  // Asynchronic reset
-		prState <= IDLE;
+		prState <= LOSE;
    else 		// Synchronic logic FSM
 		prState <= nxtState;
 		
@@ -34,45 +40,52 @@ always_comb // Update next state and outputs
 	begin
 	//defalut values
 	nxtState = prState;
-	
+	select_mux = BACKGROUND; //default value is to draw background.
+	win = 0;
+	lose = 0;
 	case (prState)
-	PLAY: begin
-				if (frog_draw_req)
+	PLAY: begin //waterfall > log > frog > bank
+				if (waterfall_draw_req)
 				begin
-					if (endbank_draw_req) //check for hit by end bank and frog (win)
+						select_mux = WATERFALL;
+						if (frog_draw_req) //lose condition
 						begin
-						mux_select = 
-						nxtState = WIN;
+							nxtState = LOSE;
 						end
-						else if (log_draw_req ||  french_draw_req ||  waterfall_draw_req)  //check for lose conditions
-								begin
-								nxtState = LOSE;
-								end
-								else if (tank_draw_req)
-										begin
-										nxtState = DIVE;
-										end
 				end
-				else if (waterfall_draw_req)
+				else if (log_draw_req)
 						begin
-						select_mux = 0;
+							select_mux = LOG;
+							if (frog_draw_req) //lose condition
+							begin
+								nxtState = LOSE;
+							end
 						end
-						else if (endbank_draw_req)
+						else if (frog_draw_req)
 								begin
-								select_mux = 5;
+									select_mux = FROG;
+									if (endbank_draw_req) //win condition
+										begin
+											nxtState = WIN;
+										end
 								end
+								else if (endbank_draw_req)
+										begin
+											select_mux = ENDBANK;
+										end
 			end
 	LOSE: begin
 			lose = 1;
 			win = 0;
-			dive = 0;
 			nxtState = PLAY;
 			end
 	WIN:	begin
 			lose = 0 ;
 			win = 1;
-			dive = 0;
+			nxtState = PLAY;
 			end
+	endcase
 	end // always comb
 	
 endmodule
+//simulate waveform2
