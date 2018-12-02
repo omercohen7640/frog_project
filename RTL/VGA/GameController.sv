@@ -27,7 +27,7 @@ localparam LOG = 2;
 localparam FROG = 3;
 localparam ENDBANK = 4;
 
-localparam LOSE_FREQ = 1010101010;
+localparam LOSE_FREQ = 1111101010;
 localparam WIN_FREQ = 0101010101;
 
  

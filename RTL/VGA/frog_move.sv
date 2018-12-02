@@ -29,7 +29,18 @@ int directionY;
 int t;
 localparam frog_speed = 2;
 localparam current_speed = 1;
+localparam frog_size = 20;
 const int	y_frame	=	479;
+const int	x_frame 	= 	639;
+logic in_frame_up = 1;
+logic in_frame_down = 1;
+logic in_frame_left = 1;
+logic in_frame_right = 1;
+
+assign in_frame_up = (ObjectStartY > 0);
+assign in_frame_down = (ObjectStartY <= y_frame - frog_size);
+assign in_frame_left = (ObjectStartX > 0);
+assign in_frame_right = (ObjectStartX <= x_frame - frog_size);
 //
 
 //
@@ -56,16 +67,16 @@ begin
 					if (ObjectStartY < y_frame - bank_width) begin
 						ObjectStartX = ObjectStartX - current_speed;
 					end
-					if (left)  begin
+					if (left && in_frame_left)  begin
 						ObjectStartX = ObjectStartX + frog_speed;
 					end
-					if (right)  begin
+					if (right && in_frame_right)  begin
 						ObjectStartX = ObjectStartX - frog_speed;
 					end
-					if (up)  begin
+					if (up && in_frame_up)  begin
 						ObjectStartY = ObjectStartY + frog_speed;
 					end
-					if (down)  begin
+					if (down && in_frame_down)  begin
 						ObjectStartY = ObjectStartY - frog_speed;
 					end
 		end

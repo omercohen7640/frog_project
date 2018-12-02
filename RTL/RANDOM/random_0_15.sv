@@ -1,7 +1,7 @@
 // outputs a psuedo random number between 1-12, uses keystrokes to randomize the number.
 
 
-module random_1_12
+module random_0_15
 	(
 	input logic clk, 
 	input logic resetN,
@@ -9,7 +9,7 @@ module random_1_12
 	output logic [3:0] random
    );
 
-	enum logic [4:0] {ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,ELEVEN,TWELVE} prState, nxtState;
+	enum logic [4:0] {ZERO,ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,ELEVEN,TWELVE,THIRTEEN,FOURTEEN,FIFTEEN} prState, nxtState;
  	
 always @(posedge clk or negedge resetN)
    begin
@@ -27,19 +27,27 @@ always_comb // Update next state and outputs
 		nxtState = prState;
 		
 		case (prState)
-		
+			ZERO:	begin
+					random = 4'd0;
+					if 		(right) 	nxtState = TWO; //right = +2
+					else if 	(left) 	nxtState = FOURTEEN;//left = -2
+					else if 	(up)		nxtState	= ONE;	//up = +1
+					else if	(down)	nxtState = FIFTEEN;//down = -1
+					else nxtState = ONE;
+					end
+
 			ONE:	begin
 					random = 4'd1;
 					if 		(right) 	nxtState = THREE; //right = +2
-					else if 	(left) 	nxtState = ELEVEN;//left = -2
+					else if 	(left) 	nxtState = FIFTEEN;//left = -2
 					else if 	(up)		nxtState	= TWO;	//up = +1
-					else if	(down)	nxtState = TWELVE;//down = -1
+					else if	(down)	nxtState = ZERO;//down = -1
 					else nxtState = TWO;
 					end
 			TWO :	begin
 					random = 4'd2;
 					if 		(right) 	nxtState = FOUR;
-					else if 	(left) 	nxtState = TWELVE;
+					else if 	(left) 	nxtState = ZERO;
 					else if 	(up)		nxtState	= THREE;
 					else if	(down)	nxtState = ONE;
 					else nxtState = THREE;
@@ -110,7 +118,7 @@ always_comb // Update next state and outputs
 					end
 			ELEVEN:begin
 					random = 4'd11;
-					if 		(right) 	nxtState = ONE;
+					if 		(right) 	nxtState = THIRTEEN;
 					else if 	(left) 	nxtState = NINE;
 					else if 	(up)		nxtState	= TWELVE;
 					else if	(down)	nxtState = TEN;
@@ -118,11 +126,38 @@ always_comb // Update next state and outputs
 					end
 			TWELVE:begin
 					random = 4'd12;
-					if 		(right) 	nxtState = TWO;
+					if 		(right) 	nxtState = FOURTEEN;
 					else if 	(left) 	nxtState = TEN;
 					else if 	(up)		nxtState	= ONE;
 					else if	(down)	nxtState = ELEVEN;
-					else nxtState = ONE;
+					else nxtState = THIRTEEN;
+					end
+					
+			THIRTEEN:begin
+					random = 4'd13;
+					if 		(right) 	nxtState = FIFTEEN;
+					else if 	(left) 	nxtState = TEN;
+					else if 	(up)		nxtState	= ONE;
+					else if	(down)	nxtState = TWELVE;
+					else nxtState = FOURTEEN;
+					end
+					
+			FOURTEEN:begin
+					random = 4'd14;
+					if 		(right) 	nxtState = ZERO;
+					else if 	(left) 	nxtState = TEN;
+					else if 	(up)		nxtState	= ONE;
+					else if	(down)	nxtState = THIRTEEN;
+					else nxtState = FIFTEEN;
+					end
+					
+			FIFTEEN:begin
+					random = 4'd12;
+					if 		(right) 	nxtState = ONE;
+					else if 	(left) 	nxtState = TEN;
+					else if 	(up)		nxtState	= ONE;
+					else if	(down)	nxtState = FOURTEEN;
+					else nxtState = ZERO;
 					end
 			endcase
 	end // always comb

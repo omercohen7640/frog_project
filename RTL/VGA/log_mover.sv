@@ -21,10 +21,11 @@ localparam	x_frame	=	639;
 localparam log_size = 20; //value for test
 localparam StartX = x_frame;
 localparam current_speed = 1;
+localparam bank_size = 80;
 
 logic [10:0] StartY = 100;
 
-assign StartY = random_1_12*log_size;
+assign StartY = bank_size + random_1_12*log_size;
 
 
 
