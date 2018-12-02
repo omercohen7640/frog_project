@@ -14,8 +14,10 @@ module GameController(
 	input logic clk, resetN,
 	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, 
 	output logic win, lose,
-	output logic [7:0] select_mux // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
-);
+	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
+	output logic [9:0] sound_freq,
+	output logic enable_sound
+	);
 
 enum logic [2:0] {WIN, LOSE, PLAY} prState, nxtState;
  
@@ -24,6 +26,10 @@ localparam WATERFALL = 1;
 localparam LOG = 2;
 localparam FROG = 3;
 localparam ENDBANK = 4;
+
+localparam LOSE_FREQ = 1010101010;
+localparam WIN_FREQ = 0101010101;
+
  
 always @(posedge clk or negedge resetN)
    begin
@@ -42,6 +48,8 @@ always_comb // Update next state and outputs
 	select_mux = BACKGROUND; //default value is to draw background.
 	win = 0;
 	lose = 0;
+	sound_freq = 9'b0;
+	enable_sound = 0;
 	case (prState)
 	PLAY: begin //waterfall > log > frog > bank
 				if (waterfall_draw_req)
@@ -77,11 +85,15 @@ always_comb // Update next state and outputs
 			lose = 1;
 			win = 0;
 			nxtState = PLAY;
+			sound_freq = 1010101010;
+			enable_sound = 1;
 			end
 	WIN:	begin
 			lose = 0 ;
 			win = 1;
 			nxtState = PLAY;
+			sound_freq = 0101010101;
+			enable_sound = 1;
 			end
 	endcase
 	end // always comb
