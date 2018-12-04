@@ -12,6 +12,7 @@ module	objects_mux	(
 					input		logic	[7:0] waterfall_mVGA_RGB,
 					input		logic	[7:0] background_mVGA_RGB,
 					input		logic	[7:0] log_mVGA_RGB,
+					input		logic [7:0] french_mVGA_RGB,
 					output	logic	[7:0] m_mVGA_R, 
 					output	logic	[7:0] m_mVGA_G, 
 					output	logic	[7:0] m_mVGA_B
@@ -24,6 +25,7 @@ localparam WATERFALL = 1;
 localparam LOG = 2;
 localparam FROG = 3;
 localparam ENDBANK = 4;
+localparam FRENCH = 5;
 
 
 logic [7:0] m_mVGA_t;
@@ -47,6 +49,7 @@ begin
 				FROG:			m_mVGA_t <= frog_mVGA_RGB;
 				LOG:			m_mVGA_t <= log_mVGA_RGB;
 				ENDBANK:		m_mVGA_t <= endbank_mVGA_RGB;
+				FRENCH:		m_mVGA_t <= french_mVGA_RGB;
 				default:		m_mVGA_t	<= background_mVGA_RGB; //if not any object then output <= background
 		endcase 
 	end
