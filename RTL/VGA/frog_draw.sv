@@ -4,7 +4,7 @@
 
 
 
-module	smileyface_object	(	
+module	frog_draw	(	
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,

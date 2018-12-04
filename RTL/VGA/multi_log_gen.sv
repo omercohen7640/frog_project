@@ -7,10 +7,10 @@ module	multi_log_gen(
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
-					input		logic	[29:0] enable,
+					input		logic	[99:0] enable,
 					input		logic	timer_done,
-					input		logic	[8:0] start_offsetY [29:0],
-					input		logic	[8:0] start_offsetX [29:0],
+					input		logic	[8:0] start_offsetY [99:0],
+					input		logic	[8:0] start_offsetX [99:0],
 					input		logic	[3:0] random_0_15,
 					input		logic	[10:0] oCoord_X,
 					input		logic	[10:0] oCoord_Y,
@@ -20,7 +20,7 @@ module	multi_log_gen(
 					
 );
 
-localparam NUM_OF_LOGS = 30;
+localparam NUM_OF_LOGS = 100;
 logic [10:0] ObjectStartX_wire [NUM_OF_LOGS-1:0];
 logic [10:0] ObjectStartY_wire [NUM_OF_LOGS-1:0];
 

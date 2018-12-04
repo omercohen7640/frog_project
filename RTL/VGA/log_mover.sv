@@ -1,6 +1,3 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
 
 
 module	log_mover	(	
