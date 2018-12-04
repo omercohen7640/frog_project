@@ -73,7 +73,7 @@ agreement for further details.
 	(input)
 	(rect 112 400 280 416)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "EnableSound" (rect 5 0 68 17)(font "Intel Clear" ))
+	(text "EnableSound" (rect 5 0 67 17)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -87,9 +87,9 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect 136 528 304 544)
+	(rect 136 544 304 560)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "freq[9..0]" (rect 5 0 48 17)(font "Intel Clear" ))
+	(text "freq[9..0]" (rect 5 0 47 17)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -686,11 +686,6 @@ agreement for further details.
 	(pt 608 472)
 )
 (connector
-	(pt 360 536)
-	(pt 360 504)
-	(bus)
-)
-(connector
 	(pt 360 504)
 	(pt 376 504)
 	(bus)
@@ -701,13 +696,18 @@ agreement for further details.
 	(pt 376 472)
 )
 (connector
-	(pt 304 536)
-	(pt 360 536)
+	(pt 648 408)
+	(pt 280 408)
+)
+(connector
+	(pt 360 504)
+	(pt 360 552)
 	(bus)
 )
 (connector
-	(pt 648 408)
-	(pt 280 408)
+	(pt 360 552)
+	(pt 304 552)
+	(bus)
 )
 (junction (pt 984 216))
 (text "1.1" (rect 392 104 410 123)(font "Intel Clear" (font_size 8)))
