@@ -27,16 +27,11 @@ localparam bank_size = 80;
 localparam NULL_X = 400 ; //null coordinates for a log, they are behind the endbank so the log won't show up if it's disabled
 localparam NULL_Y = 0; //null coordinates for a log, they are behind the endbank so the log won't show up if it's disabled
 
-logic [10:0] StartX = 11'd639;
-logic [10:0] StartY = 11'd100;
+logic [10:0] StartX ;
+logic [10:0] StartY ;
 
-//logic [10:0] StartX_nxt = 11'd639;
-//logic [10:0] StartY_nxt = 11'd100;
-
-//assign StartX_nxt = x_frame +  start_offsetX; //offset is used to delay the logs so they won't all overlap on beginning
-//assign StartY_nxt = bank_size + random_0_15*log_size + start_offsetY; //offset is used  so the logs won't all overlap on beginning board
 assign StartX = x_frame + StartY +start_offsetX; //offset is used to delay the logs so they won't all overlap on beginning
-assign StartY = bank_size + random_0_15*log_size + start_offsetY; //offset is used  so the logs won't all overlap on beginning board
+assign StartY = bank_size + ((start_offsetY+random_0_15)%16)*log_size ; //offset is used  so the logs won't all overlap on beginning board
 
 
 

@@ -1,6 +1,3 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
 
 
 
@@ -10,14 +7,14 @@ module	log_draw	(
 					input		logic	RESETn,
 					input 	logic	[10:0]	oCoord_X,
 					input 	logic	[10:0]	oCoord_Y,
-					input 	logic	[10:0] ObjectStartX [1:0],//11*NUM_OF_LOGS
-					input 	logic	[10:0] ObjectStartY [1:0],//11*NUM_OF_LOGS
+					input 	logic	[10:0] ObjectStartX [29:0],//11*NUM_OF_LOGS
+					input 	logic	[10:0] ObjectStartY [29:0],//11*NUM_OF_LOGS
 					output	logic			drawing_request,
 					output	logic	[7:0]		mVGA_RGB
 					
 );
 
-localparam	NUM_OF_LOGS = 2;
+localparam	NUM_OF_LOGS = 30;
 localparam  int object_X_size = 20;
 localparam  int object_Y_size = 20;
 
@@ -48,10 +45,10 @@ bit [0:object_Y_size-1] [0:object_Y_size-1] [7:0] object_colors = {
 //-- one bit mask  0 - off 1 dispaly 
 
 bit [0:object_Y_size-1] [0:object_X_size-1] object_mask = {
-{20'b00001111111111110000},
-{20'b00011111111111111000},
-{20'b00111111111111111100},
-{20'b01111111111111111110},
+{20'b01111111111111111111},
+{20'b11111111111111111111},
+{20'b11111111111111111111},
+{20'b11111111111111111111},
 {20'b11111111111111111111},
 {20'b11111111111111111111},
 {20'b11111111111111111111},

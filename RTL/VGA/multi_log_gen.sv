@@ -7,18 +7,20 @@ module	multi_log_gen(
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
-					input		logic	[1:0] enable,
+					input		logic	[29:0] enable,
 					input		logic	timer_done,
-					input		logic	[8:0] start_offsetY [1:0],
-					input		logic	[8:0] start_offsetX [1:0],
+					input		logic	[8:0] start_offsetY [29:0],
+					input		logic	[8:0] start_offsetX [29:0],
 					input		logic	[3:0] random_0_15,
+					input		logic	[10:0] oCoord_X,
+					input		logic	[10:0] oCoord_Y,
 					output	logic	drawing_request,
 					output	logic	[7:0]		mVGA_RGB
 					
 					
 );
 
-localparam NUM_OF_LOGS = 2;
+localparam NUM_OF_LOGS = 30;
 logic [10:0] ObjectStartX_wire [NUM_OF_LOGS-1:0];
 logic [10:0] ObjectStartY_wire [NUM_OF_LOGS-1:0];
 
@@ -38,7 +40,7 @@ log_mover log_mover_inst[NUM_OF_LOGS-1:0] (
 
 
 //for (int j =0; j< NUM_OF_LOGS-1 ; j++) begin
-	log_draw	(	
+	log_draw	log_draw_ins(	
 	//		--////////////////////	Clock Input	 	////////////////////	
 						.CLK(CLK),
 						.RESETn(RESETn),
