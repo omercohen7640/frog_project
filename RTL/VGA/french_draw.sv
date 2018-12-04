@@ -4,7 +4,7 @@
 
 
 
-module	french_object	(	
+module	french_draw	(	
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
