@@ -31,8 +31,11 @@ localparam FRENCH = 5;
 
 
 //localparam one_sec = 50000000;
+=======
+//localparam one_sec = 50000000;
 localparam one_sec = 5; // value for simulation
-localparam LOG_NUM = 30;
+localparam LOG_NUM = 100;
+
 
 localparam LOSE_FREQ = 0;
 localparam WIN_FREQ = 1;
