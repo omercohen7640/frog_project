@@ -16,7 +16,7 @@ module GameController(
 	output logic win, lose,
 	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
 	output logic [9:0] sound_freq_out,
-	output logic [1:0] log_enable_out,
+	output logic [99:0] log_enable_out,
 	output logic enable_sound
 	);
 
@@ -31,8 +31,11 @@ localparam FRENCH = 5;
 
 
 //localparam one_sec = 50000000;
+
+
+//localparam one_sec = 50000000;
 localparam one_sec = 5; // value for simulation
-localparam LOG_NUM = 2;
+localparam LOG_NUM = 100;
 
 localparam LOSE_FREQ = 0;
 localparam WIN_FREQ = 1;
@@ -111,7 +114,7 @@ always_comb // Update next state and outputs
 				else if (french_draw_req)
 						begin
 							select_mux = FRENCH;
-							if (log_draw_req)
+							if (frog_draw_req)
 							begin
 								nxtState = LOSE;
 							end
