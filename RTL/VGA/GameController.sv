@@ -12,11 +12,11 @@
 
 module GameController(
 	input logic clk, resetN,
-	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, 
+	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, french_draw_req,
 	output logic win, lose,
 	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
 	output logic [9:0] sound_freq_out,
-	output logic [LOG_NUM-1:0] log_enable_out,
+	output logic [99:0] log_enable_out,
 	output logic enable_sound
 	);
 
@@ -27,9 +27,15 @@ localparam WATERFALL = 1;
 localparam LOG = 2;
 localparam FROG = 3;
 localparam ENDBANK = 4;
+localparam FRENCH = 5;
+
+
+//localparam one_sec = 50000000;
+=======
 //localparam one_sec = 50000000;
 localparam one_sec = 5; // value for simulation
 localparam LOG_NUM = 100;
+
 
 localparam LOSE_FREQ = 0;
 localparam WIN_FREQ = 1;
@@ -96,7 +102,7 @@ always_comb // Update next state and outputs
 	sound_freq_next = LOSE_FREQ;
 	level_next = level;
 	case (prState)
-	PLAY: begin //waterfall > log > frog > bank
+	PLAY: begin //waterfall > french >log > frog > bank
 				if (waterfall_draw_req)
 				begin
 						select_mux = WATERFALL;
@@ -105,26 +111,34 @@ always_comb // Update next state and outputs
 							nxtState = LOSE;
 						end
 				end
-				else if (log_draw_req)
+				else if (french_draw_req)
 						begin
-							select_mux = LOG;
-							if (frog_draw_req) //lose condition
+							select_mux = FRENCH;
+							if (frog_draw_req)
 							begin
 								nxtState = LOSE;
 							end
 						end
-						else if (frog_draw_req)
+						else if (log_draw_req)
 								begin
-									select_mux = FROG;
-									if (endbank_draw_req) //win condition
-										begin
-											nxtState = WIN;
-										end
+									select_mux = LOG;
+									if (frog_draw_req) //lose condition
+									begin
+										nxtState = LOSE;
+									end
 								end
-								else if (endbank_draw_req)
+								else if (frog_draw_req)
 										begin
-											select_mux = ENDBANK;
+											select_mux = FROG;
+											if (endbank_draw_req) //win condition
+												begin
+													nxtState = WIN;
+												end
 										end
+										else if (endbank_draw_req)
+												begin
+													select_mux = ENDBANK;
+												end
 			end
 	LOSE: begin
 			lose = 1;
