@@ -24,7 +24,7 @@ const int	french_size = 26;
 const int	x_frame 	= 	639;
 
 
-localparam french_speed = 2;
+localparam french_speed = 3;
 localparam start_counter = 4;
 
 localparam LEFT = 0;
