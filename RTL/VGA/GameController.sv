@@ -36,15 +36,14 @@ localparam TAKE = 1;
 localparam DONT_TAKE = 0;
 
 
-//localparam one_sec = 50000000;
 
 
-//localparam one_sec = 50000000;
-localparam one_sec = 5; // value for simulation
+localparam one_sec = 50000000;
+//localparam one_sec = 5; // value for simulation
 localparam LOG_NUM = 15;
 
-localparam LOSE_FREQ = 0;
-localparam WIN_FREQ = 1;
+localparam LOSE_FREQ = 950;
+localparam WIN_FREQ = 500;
 
 logic [25:0] counter;
 
