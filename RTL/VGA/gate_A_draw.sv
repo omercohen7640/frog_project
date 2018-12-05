@@ -5,9 +5,10 @@ module	gate_A_draw	(
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
-					input 	logic	[10:0]	oCoord_X,
 					input 	logic	[10:0]	oCoord_Y,
-					
+					input 	logic	[10:0]	oCoord_X,
+					input		logic [10:0]	ObjectStartX,
+					input		logic [10:0]	ObjectStartY,
 					output	logic	gateA_draw_req,
 					output	logic	[7:0]		mVGA_RGB
 					
@@ -46,8 +47,6 @@ bit [0:object_Y_size-1] [0:object_X_size-1] object_mask = {
 
 };                                          
                  
-logic	[10:0] ObjectStartX;
-logic	[10:0] ObjectStartY;
 
 
 					  
@@ -83,8 +82,6 @@ always_ff@(posedge CLK or negedge RESETn)
 	begin
 		if(!RESETn)
 		begin
-			ObjectStartX		<= 9'b0;
-			ObjectStartY		<= 9'b0;
 			mVGA_RGB				<=	8'b0;
 			gateA_draw_req 	<=	1'b0;
 			mask_bit				<=	1'b0;
