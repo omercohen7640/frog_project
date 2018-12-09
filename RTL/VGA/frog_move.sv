@@ -5,12 +5,16 @@ module	frog_move	(
 					input		logic	RESETn,
 					input		logic	timer_done,
 					input		logic	reset_position,
-					input		logic	jump,
+
+//					input		logic	X_direction,
+//					input		logic	y_direction,
+
 					input 	logic left,
 					input 	logic right,
 					input 	logic up,
 					input 	logic down,
 					input		logic [8:0]	bank_width,
+					input		logic	jump,
 					input		logic	[10:0]	jumptoX,
 					input		logic	[10:0]	jumptoY,
 					output	logic	[10:0]	ObjectStartX,

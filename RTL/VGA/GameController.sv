@@ -12,11 +12,11 @@
 
 module GameController(
 	input logic clk, resetN,
-	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, french_draw_req,
-	output logic win, lose,
+	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, french_draw_req, gate_a_draw_req, gate_b_draw_req,
+	output logic win, lose, AorB, take_gate,
 	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
 	output logic [9:0] sound_freq_out,
-	output logic [99:0] log_enable_out,
+	output logic [14:0] log_enable_out,
 	output logic enable_sound
 	);
 
@@ -28,17 +28,22 @@ localparam LOG = 2;
 localparam FROG = 3;
 localparam ENDBANK = 4;
 localparam FRENCH = 5;
+localparam GATEA = 6;
+localparam GATEB = 7;
+localparam A = 0;
+localparam B = 1;
+localparam TAKE = 1;
+localparam DONT_TAKE = 0;
 
 
-//localparam one_sec = 50000000;
 
 
-//localparam one_sec = 50000000;
-localparam one_sec = 5; // value for simulation
-localparam LOG_NUM = 100;
+localparam one_sec = 50000000;
+//localparam one_sec = 5; // value for simulation
+localparam LOG_NUM = 15;
 
-localparam LOSE_FREQ = 0;
-localparam WIN_FREQ = 1;
+localparam LOSE_FREQ = 950;
+localparam WIN_FREQ = 500;
 
 logic [25:0] counter;
 
@@ -64,9 +69,9 @@ always @(posedge clk or negedge resetN)
 	   
    if ( !resetN ) begin  // Asynchronic reset
 		prState <= PLAY;
-		log_number = 0;
-		sound_freq = 0;
-		level = 1;
+		log_number <= 0;
+		sound_freq <= 0;
+		level <= 1;
 		end
    else 		// Synchronic logic FSM
 	begin
@@ -76,14 +81,16 @@ always @(posedge clk or negedge resetN)
 				if (counter > 0)
 					counter <= counter -1;
 				else
-					level = level_next;
-					sound_freq = sound_freq_next;
+				begin
+					level <= level_next;
+					sound_freq <= sound_freq_next;
 					prState <= nxtState;
+				end
 			end
 		else
 			begin
-				level = level_next;
-				sound_freq = sound_freq_next;
+				level <= level_next;
+				sound_freq <= sound_freq_next;
 				counter <= one_sec;
 				prState <= nxtState;
 			end
@@ -101,15 +108,17 @@ always_comb // Update next state and outputs
 	next_log_number = log_number;
 	sound_freq_next = LOSE_FREQ;
 	level_next = level;
+	take_gate = DONT_TAKE;
+	AorB = A;
 	case (prState)
-	PLAY: begin //waterfall > french >log > frog > bank
+	PLAY: begin //waterfall > french >log > gate > frog > bank
 				if (waterfall_draw_req)
 				begin
-						select_mux = WATERFALL;
-						if (frog_draw_req) //lose condition
-						begin
-							nxtState = LOSE;
-						end
+					select_mux = WATERFALL;
+					if (frog_draw_req) //lose condition
+					begin
+						nxtState = LOSE;
+					end
 				end
 				else if (french_draw_req)
 						begin
@@ -127,18 +136,36 @@ always_comb // Update next state and outputs
 										nxtState = LOSE;
 									end
 								end
-								else if (frog_draw_req)
+								else if (gate_a_draw_req)
+									begin
+										select_mux = GATEA;
+										if (frog_draw_req && !take_gate)
 										begin
-											select_mux = FROG;
-											if (endbank_draw_req) //win condition
-												begin
-													nxtState = WIN;
-												end
+											AorB = B;
+											take_gate = TAKE;
 										end
-										else if (endbank_draw_req)
+									end
+										else if (gate_b_draw_req)
 												begin
-													select_mux = ENDBANK;
+													select_mux = GATEB;
+													if (frog_draw_req && !take_gate)
+													begin
+														AorB = A;
+														take_gate = TAKE;
+													end
 												end
+												else if (frog_draw_req)
+														begin
+															select_mux = FROG;
+															if (endbank_draw_req) //win condition
+																begin
+																	nxtState = WIN;
+																end
+														end
+														else if (endbank_draw_req)
+																begin
+																	select_mux = ENDBANK;
+																end
 			end
 	LOSE: begin
 			lose = 1;
@@ -146,8 +173,8 @@ always_comb // Update next state and outputs
 			nxtState = BUZ;
 			sound_freq_next = LOSE_FREQ;
 			if (level_next > 1) begin
-				level_next = level_next - 1;
-				next_log_number = (next_log_number - 31)/32;
+				level_next = level - 1;
+				next_log_number = (log_number - 31)/32;
 				end
 			end
 	WIN:	begin
@@ -155,8 +182,8 @@ always_comb // Update next state and outputs
 			win = 1;
 			nxtState = BUZ;
 			sound_freq_next = WIN_FREQ;
-			level_next = level_next + 1;
-			next_log_number = next_log_number*32 + 31;
+			level_next = level + 1;
+			next_log_number = log_number*32 + 31;
 			end
 	BUZ: begin
 			lose = 0;
