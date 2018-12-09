@@ -1,7 +1,7 @@
 
 
 
-module	gate_A_draw	(	
+module	gate_B_draw	(	
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
@@ -19,10 +19,10 @@ localparam  int object_Y_size = 9;
 
 
 bit [0:object_Y_size-1] [0:object_X_size-1] [7:0] object_colors = {
- {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},
- {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},
- {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},
- {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},
+ {8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E},
+ {8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E},
+ {8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E},
+ {8'h2E, 8'h2E, 8'h2E, 8'h3E, 8'h2E, 8'h2E, 8'h2E, 8'h2E, 8'h2E},
  {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},
  {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},
  {8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E, 8'h3E},

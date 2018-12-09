@@ -69,59 +69,59 @@ begin
 			counter = start_counter;
 			if ((random >= 4'd0) && (random <= 4'd3))// move up
 			begin
-				move_x = 0;
-				move_y = french_speed;
-				direction = UP;
+				move_x <= 0;
+				move_y <= french_speed;
+				direction <= UP;
 			end
 			if ((random >= 4'd4) && (random <= 4'd7))//move down
 			begin
-				move_x = 0;
-				move_y = french_speed;
-				direction = DOWN;
+				move_x <= 0;
+				move_y <= french_speed;
+				direction <= DOWN;
 			end
 			if ((random >= 4'd8) && (random <= 4'd11))//move right
 			begin
-				move_x = french_speed;
-				move_y = 0;
-				direction = RIGHT;
+				move_x <= french_speed;
+				move_y <= 0;
+				direction <= RIGHT;
 			end
 			if ((random >= 4'd12) && (random <= 4'd15))// move left
 			begin
-				move_x = french_speed;
-				move_y = 0;
-				direction = LEFT;
+				move_x <= french_speed;
+				move_y <= 0;
+				direction <= LEFT;
 			end
 		end
 		else 
 		begin
-			counter = counter - 1;
+			counter <= counter - 1;
 		end
 		if (direction == UP) begin
 			if (ObjectStartY >= limit_up)
 				begin
-					ObjectStartX = ObjectStartX - move_x;
-					ObjectStartY = ObjectStartY - move_y;
+					ObjectStartX <= ObjectStartX - move_x;
+					ObjectStartY <= ObjectStartY - move_y;
 				end
 			end
 		if (direction == DOWN) begin
 			if (ObjectStartY + french_size <= limit_down)
 				begin
-					ObjectStartX = ObjectStartX + move_x;
-					ObjectStartY = ObjectStartY + move_y;
+					ObjectStartX <= ObjectStartX + move_x;
+					ObjectStartY <= ObjectStartY + move_y;
 				end
 			end
 		if (direction == RIGHT) begin
 			if (ObjectStartX + french_size <= limit_right)
 				begin
-					ObjectStartX = ObjectStartX + move_x;
-					ObjectStartY = ObjectStartY + move_y;					
+					ObjectStartX <= ObjectStartX + move_x;
+					ObjectStartY <= ObjectStartY + move_y;					
 				end
 			end
 		if (direction == LEFT) begin
 			if (ObjectStartX >= limit_left)
 				begin
-					ObjectStartX = ObjectStartX - move_x;
-					ObjectStartY = ObjectStartY - move_y;
+					ObjectStartX <= ObjectStartX - move_x;
+					ObjectStartY <= ObjectStartY - move_y;
 				end
 			end
 		end

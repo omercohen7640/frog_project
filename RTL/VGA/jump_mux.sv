@@ -18,22 +18,23 @@ localparam GATE_A = 0;
 localparam GATE_B= 1;
 
 
-always_comb
+always_ff@(posedge CLK or negedge RESETn)
 begin
-		case (control)
-				GATE_A:	begin
-							jumptoX <= Gate_A_X;
-							jumptoY <= Gate_A_Y;
-							end
-				GATE_B: 	begin
-							jumptoX <= Gate_B_X;
-							jumptoY <= Gate_B_Y;
-							end
-				default:	begin //should never happen
-							jumptoX <= Gate_A_X-30;
-							jumptoY <= Gate_A_Y-30;
-							end
-		endcase 
+		if(!RESETn)
+		begin
+			jumptoX <= Gate_A_X;
+			jumptoY <= Gate_A_Y;
+		end
+		else if (control == GATE_B)
+				begin
+					jumptoX <= Gate_B_X;
+					jumptoY <= Gate_B_Y;
+				end
+				else if (control == GATE_A)
+					begin
+						jumptoX <= Gate_A_X;
+						jumptoY <= Gate_A_Y;
+					end
 end
 endmodule
 

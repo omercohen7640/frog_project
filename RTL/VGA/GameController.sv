@@ -139,14 +139,20 @@ always_comb // Update next state and outputs
 								else if (gate_a_draw_req)
 									begin
 										select_mux = GATEA;
-										AorB = A;
-										take_gate = TAKE;
+										if (frog_draw_req && !take_gate)
+										begin
+											AorB = B;
+											take_gate = TAKE;
+										end
 									end
 										else if (gate_b_draw_req)
 												begin
 													select_mux = GATEB;
-													AorB = B;
-													take_gate =TAKE;
+													if (frog_draw_req && !take_gate)
+													begin
+														AorB = A;
+														take_gate = TAKE;
+													end
 												end
 												else if (frog_draw_req)
 														begin
