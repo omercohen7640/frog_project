@@ -1,7 +1,3 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
-
 
 module	frog_move	(	
 //		--////////////////////	Clock Input	 	////////////////////	
@@ -10,8 +6,6 @@ module	frog_move	(
 					input		logic	timer_done,
 					input		logic	reset_position,
 					input		logic	jump,
-//					input		logic	X_direction,
-//					input		logic	y_direction,
 					input 	logic left,
 					input 	logic right,
 					input 	logic up,
