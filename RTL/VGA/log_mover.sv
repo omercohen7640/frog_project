@@ -50,7 +50,7 @@ always_ff@(posedge CLK or negedge RESETn)
 								end
 							else
 								begin
-								ObjectStartX = ObjectStartX - current_speed;
+								ObjectStartX <= ObjectStartX - current_speed;
 								end
 						end
 			end
