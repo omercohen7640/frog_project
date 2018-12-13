@@ -35,7 +35,7 @@ localparam DOWN = 3;
 localparam limit_left = 45;
 localparam limit_right = 635;
 localparam limit_up = 85;
-localparam limit_down = 400;
+localparam limit_down = 393;
 
 logic [1:0] direction;
 logic [2:0] move_x;

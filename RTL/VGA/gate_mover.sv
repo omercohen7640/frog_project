@@ -27,7 +27,7 @@ localparam one_sec = 50000000;
 enum logic [2:0] {NEW_GATES, IDLE ,NO_SHOW} prState, nxtState;
 logic [10:0] B_start_offsetX_next,B_start_offsetY_next,A_start_offsetX_next,A_start_offsetY_next;
 
-logic [1:0] [10:0]  B_coord_x  = {
+logic [15:0] [10:0]  B_coord_x  = {
   11'd340
 , 11'd355
 , 11'd400
@@ -45,7 +45,7 @@ logic [1:0] [10:0]  B_coord_x  = {
 , 11'd400
 , 11'd500
 };
-logic [1:0] [10:0]  A_coord_y  = {
+logic [15:0] [10:0]  A_coord_y  = {
   11'd102
 , 11'd360
 , 11'd120
@@ -65,7 +65,7 @@ logic [1:0] [10:0]  A_coord_y  = {
 };
 
 
-logic [1:0] [10:0]  A_coord_x  = {
+logic [15:0] [10:0]  A_coord_x  = {
   11'd100
 , 11'd115
 , 11'd80
@@ -84,7 +84,7 @@ logic [1:0] [10:0]  A_coord_x  = {
 , 11'd340
 };
 
-logic [1:0] [10:0]  B_coord_y  = {
+logic [15:0] [10:0]  B_coord_y  = {
   11'd375
 , 11'd115
 , 11'd180

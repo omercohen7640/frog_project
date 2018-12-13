@@ -111,7 +111,7 @@ always_comb // Update next state and outputs
 	take_gate = DONT_TAKE;
 	AorB = A;
 	case (prState)
-	PLAY: begin //waterfall > french >log > gate > frog > bank
+	PLAY: begin //waterfall > endbank > french >log > gate > frog  
 				if (waterfall_draw_req)
 				begin
 					select_mux = WATERFALL;
@@ -120,51 +120,51 @@ always_comb // Update next state and outputs
 						nxtState = LOSE;
 					end
 				end
-				else if (french_draw_req)
+				else if (endbank_draw_req)
 						begin
-							select_mux = FRENCH;
+							select_mux = ENDBANK;
 							if (frog_draw_req)
 							begin
-								nxtState = LOSE;
+								nxtState = WIN;
 							end
 						end
-						else if (log_draw_req)
+						else if (french_draw_req)
 								begin
-									select_mux = LOG;
-									if (frog_draw_req) //lose condition
+									select_mux = FRENCH;
+									if (frog_draw_req)
 									begin
 										nxtState = LOSE;
 									end
 								end
-								else if (gate_a_draw_req)
-									begin
-										select_mux = GATEA;
-										if (frog_draw_req && !take_gate)
+								else if (log_draw_req)
 										begin
-											AorB = B;
-											take_gate = TAKE;
+											select_mux = LOG;
+											if (frog_draw_req) //lose condition
+											begin
+												nxtState = LOSE;
+											end
 										end
-									end
-										else if (gate_b_draw_req)
+										else if (gate_a_draw_req)
+											begin
+												select_mux = GATEA;
+												if (frog_draw_req && !take_gate)
 												begin
-													select_mux = GATEB;
-													if (frog_draw_req && !take_gate)
-													begin
-														AorB = A;
-														take_gate = TAKE;
-													end
+													AorB = B;
+													take_gate = TAKE;
 												end
-												else if (frog_draw_req)
+											end
+												else if (gate_b_draw_req)
 														begin
-															select_mux = FROG;
-															if (endbank_draw_req) //win condition
-																begin
-																	nxtState = WIN;
-																end
+															select_mux = GATEB;
+															if (frog_draw_req && !take_gate)
+															begin
+																AorB = A;
+																take_gate = TAKE;
+															end
 														end
-														else if (endbank_draw_req)
+														else if (frog_draw_req)
 																begin
-																	select_mux = ENDBANK;
+																	select_mux = FROG;
 																end
 			end
 	LOSE: begin
