@@ -17,7 +17,8 @@ module GameController(
 	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
 	output logic [9:0] sound_freq_out,
 	output logic [14:0] log_enable_out,
-	output logic enable_sound
+	output logic enable_sound,
+	output logic [7:0] level 
 	);
 
 enum logic [2:0] {WIN, LOSE, PLAY, BUZ} prState, nxtState;
@@ -47,8 +48,7 @@ localparam WIN_FREQ = 500;
 
 logic [25:0] counter;
 
-logic [10:0] level;
-logic [10:0] level_next;
+logic [7:0] level_next;
 
 
 logic [LOG_NUM-1:0] log_number;
