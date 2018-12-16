@@ -16,7 +16,7 @@ module GameController(
 	output logic win, lose, AorB, take_gate,
 	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
 	output logic [9:0] sound_freq_out,
-	output logic [14:0] log_enable_out,
+	output logic [99:0] log_enable_out,
 	output logic enable_sound,
 	output logic [7:0] level 
 	);
@@ -41,7 +41,7 @@ localparam DONT_TAKE = 0;
 
 localparam one_sec = 50000000;
 //localparam one_sec = 5; // value for simulation
-localparam LOG_NUM = 15;
+localparam LOG_NUM = 100;
 
 localparam LOSE_FREQ = 950;
 localparam WIN_FREQ = 500;
@@ -121,51 +121,51 @@ always_comb // Update next state and outputs
 					end
 				end
 				else if (endbank_draw_req)
-						begin
-							select_mux = ENDBANK;
-							if (frog_draw_req)
-							begin
-								nxtState = WIN;
-							end
-						end
-						else if (french_draw_req)
-								begin
-									select_mux = FRENCH;
-									if (frog_draw_req)
-									begin
-										nxtState = LOSE;
-									end
-								end
-								else if (log_draw_req)
-										begin
-											select_mux = LOG;
-											if (frog_draw_req) //lose condition
-											begin
-												nxtState = LOSE;
-											end
-										end
-										else if (gate_a_draw_req)
-											begin
-												select_mux = GATEA;
-												if (frog_draw_req && !take_gate)
-												begin
-													AorB = B;
-													take_gate = TAKE;
-												end
-											end
-												else if (gate_b_draw_req)
-														begin
-															select_mux = GATEB;
-															if (frog_draw_req && !take_gate)
-															begin
-																AorB = A;
-																take_gate = TAKE;
-															end
-														end
-														else if (frog_draw_req)
-																begin
-																	select_mux = FROG;
-																end
+				begin
+					select_mux = ENDBANK;
+					if (frog_draw_req)
+					begin
+						nxtState = WIN;
+					end
+				end
+				else if (french_draw_req)
+				begin
+					select_mux = FRENCH;
+					if (frog_draw_req)
+					begin
+						nxtState = LOSE;
+					end
+				end
+				else if (log_draw_req)
+				begin
+					select_mux = LOG;
+					if (frog_draw_req) //lose condition
+					begin
+						nxtState = LOSE;
+					end
+				end
+				else if (gate_a_draw_req)
+				begin
+					select_mux = GATEA;
+					if (frog_draw_req && !take_gate)
+					begin
+						AorB = B;
+						take_gate = TAKE;
+					end
+				end
+				else if (gate_b_draw_req)
+				begin
+					select_mux = GATEB;
+					if (frog_draw_req && !take_gate)
+					begin
+						AorB = A;
+						take_gate = TAKE;
+					end
+				end
+				else if (frog_draw_req)
+				begin
+					select_mux = FROG;
+				end
 			end
 	LOSE: begin
 			lose = 1;

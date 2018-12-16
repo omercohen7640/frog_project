@@ -7,14 +7,14 @@ module	log_draw	(
 					input		logic	RESETn,
 					input 	logic	[10:0]	oCoord_X,
 					input 	logic	[10:0]	oCoord_Y,
-					input 	logic	[10:0] ObjectStartX [14:0],//11*NUM_OF_LOGS
-					input 	logic	[10:0] ObjectStartY [14:0],//11*NUM_OF_LOGS
+					input 	logic	[10:0] ObjectStartX [99:0],//11*NUM_OF_LOGS
+					input 	logic	[10:0] ObjectStartY [99:0],//11*NUM_OF_LOGS
 					output	logic			drawing_request,
 					output	logic	[7:0]		mVGA_RGB
 					
 );
 
-localparam	NUM_OF_LOGS = 15;
+localparam	NUM_OF_LOGS = 100;
 localparam  int object_X_size = 40;
 localparam  int object_Y_size = 10;
 
