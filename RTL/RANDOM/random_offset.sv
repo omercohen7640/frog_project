@@ -1,3 +1,4 @@
+//A list of 100 static random numbers to be used for initial log offsets.
 
 
 module	random_offset	(	
