@@ -1,4 +1,4 @@
-
+//this mux chooses for the frog the correct gate's coordinates.
 module	jump_mux	(	
 //		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,

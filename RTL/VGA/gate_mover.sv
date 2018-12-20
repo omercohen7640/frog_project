@@ -1,4 +1,11 @@
-
+//this module is FSM
+//inputs:
+//random - random signal in order to choose random location for the gates.
+//change_coord - signal that tells the module when to change the gate' locations.
+// states -
+//NEW_Gates - set new locations for the gates
+//NO_SHOW - make the gates disapear for one second
+//IDLE - wait for the frog to hit the gates
 
 module	gate_mover	(	
 //		--////////////////////	Clock Input	 	////////////////////	
@@ -116,7 +123,7 @@ begin
    else
 		begin
 		counter <= next_counter;
-		if (prState == NO_SHOW)
+		if (prState == NO_SHOW) //one second dealy for NO_SHOW state
 			begin
 				if(counter == 0)
 					prState <= nxtState;
@@ -156,7 +163,7 @@ begin
 					else
 						nxtState = IDLE;
 				end
-			NO_SHOW:begin
+			NO_SHOW:begin //set the gates location "behind" the end bank 
 					A_start_offsetY_next = 11'd0;
 					A_start_offsetX_next = 11'd0;
 					B_start_offsetY_next = 11'd0;

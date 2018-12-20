@@ -1,6 +1,11 @@
-// game FSM
-//temporary- one log instead of many.
-
+// this module is the game's FSM
+//inputs: all objects draw requests
+//output:
+//take_gate - control signal that tell  the frog to move to a gate's location.
+//AorB- set the gate that the frog should take when it jumps to gate.
+//log_enable_out - number of logs enabled is equal to the number of ones in this vector.
+//                  also: nmuber of logs enable = level * 5
+// 
 //lose conditions -
 //hit frog and log
 //hit frog and waterfall
@@ -14,7 +19,7 @@ module GameController(
 	input logic clk, resetN,
 	input	logic waterfall_draw_req, log_draw_req, frog_draw_req, endbank_draw_req, french_draw_req, gate_a_draw_req, gate_b_draw_req,
 	output logic win, lose, AorB, take_gate,
-	output logic [7:0] select_mux, // object select number defined by its place on the input raw when. example: waterfall is 1, frog is 2. backgrond is 0.
+	output logic [7:0] select_mux, 
 	output logic [9:0] sound_freq_out,
 	output logic [99:0] log_enable_out,
 	output logic enable_sound,
@@ -97,7 +102,7 @@ always @(posedge clk or negedge resetN)
 	end
 	end // always
 	
-always_comb // Update next state and outputs
+always_comb
 	begin
 	//defalut values
 	nxtState = prState;
@@ -120,18 +125,18 @@ always_comb // Update next state and outputs
 						nxtState = LOSE;
 					end
 				end
-				else if (endbank_draw_req)
+				else if (endbank_draw_req) 
 				begin
 					select_mux = ENDBANK;
-					if (frog_draw_req)
+					if (frog_draw_req) //win condition
 					begin
 						nxtState = WIN;
 					end
 				end
-				else if (french_draw_req)
+				else if (french_draw_req) 
 				begin
 					select_mux = FRENCH;
-					if (frog_draw_req)
+					if (frog_draw_req) //lose condition
 					begin
 						nxtState = LOSE;
 					end
@@ -147,7 +152,7 @@ always_comb // Update next state and outputs
 				else if (gate_a_draw_req)
 				begin
 					select_mux = GATEA;
-					if (frog_draw_req && !take_gate)
+					if (frog_draw_req && !take_gate) // jump to gate B
 					begin
 						AorB = B;
 						take_gate = TAKE;
@@ -156,7 +161,7 @@ always_comb // Update next state and outputs
 				else if (gate_b_draw_req)
 				begin
 					select_mux = GATEB;
-					if (frog_draw_req && !take_gate)
+					if (frog_draw_req && !take_gate) // jump to gate A
 					begin
 						AorB = A;
 						take_gate = TAKE;
@@ -174,7 +179,7 @@ always_comb // Update next state and outputs
 			sound_freq_next = LOSE_FREQ;
 			if (level_next > 1) begin
 				level_next = level - 1;
-				next_log_number = (log_number - 31)/32;
+				next_log_number = (log_number - 31)/32;//subtract 5 ones from log_number
 				end
 			end
 	WIN:	begin
@@ -183,9 +188,9 @@ always_comb // Update next state and outputs
 			nxtState = BUZ;
 			sound_freq_next = WIN_FREQ;
 			level_next = level + 1;
-			next_log_number = log_number*32 + 31;
+			next_log_number = log_number*32 + 31; //add 5 ones to log_number
 			end
-	BUZ: begin
+	BUZ: begin //one second delay and sound enabled
 			lose = 0;
 			win = 0;
 			nxtState = PLAY;
