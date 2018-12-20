@@ -16,7 +16,8 @@ module	back_ground_draw	(
 
 const int	x_frame	=	639;
 const int	y_frame	=	479;
-const int	int_bank_width =	80; //we are dividing the screen into a grid of 12 rows and 16 columns, threrefore the width of a bank is 2*480/12 = 80 pixels
+const int	int_bank_width =	80; //we are dividing the screen into a grid of 24 rows and 32 columns,
+											//while using 16 of the rows for the river, thererefore the width of a bank is 4*480/24 = 80 pixels
 
 logic [2:0] mVGA_R;
 logic [2:0] mVGA_G;

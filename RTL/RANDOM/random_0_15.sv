@@ -1,4 +1,4 @@
-// outputs a psuedo random number between 1-12, uses keystrokes to randomize the number.
+// outputs a psuedo random number between 0-15, uses keystrokes to randomize the number.
 
 
 module random_0_15

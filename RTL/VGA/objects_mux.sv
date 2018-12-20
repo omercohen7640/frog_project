@@ -1,6 +1,5 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
+//object mux recieves color vectors from all of the objects in the game. 
+//the gamecontroller controls which color vector the mux should pass on to the VGA modules to present in current coordinate.
 
 module	objects_mux	(	
 //		--////////////////////	Clock Input	 	////////////////////	

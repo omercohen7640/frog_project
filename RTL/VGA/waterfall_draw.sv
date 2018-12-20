@@ -1,7 +1,4 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
-
+//waterfall object draw is static and sits at the left end of the screen always.
 
 
 module	waterfall_object	(	
