@@ -1,6 +1,4 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
+//this module is simply a connector between all the log movers and the log draw.
 
 
 module	multi_log_gen(	

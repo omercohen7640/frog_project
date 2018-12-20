@@ -1,4 +1,7 @@
-
+//the input for this module is the coordinates(X and Y) of the start of every Log in the game, 
+//and the current pixel which the VGA is requesting a color vector for
+//the module calculates whtether said pixel is within a log and if so it outputs 
+//the correct color vector and creates a drawing request.
 
 
 module	log_draw	(	
@@ -56,13 +59,11 @@ logic [NUM_OF_LOGS-1:0] drawing_X = 0;  /* synthesis keep */
 logic [NUM_OF_LOGS-1:0] drawing_Y = 0; /* synthesis keep */
 logic mask_bit	; /* synthesis keep */
 
-logic [10:0] objectEndX [NUM_OF_LOGS-1:0] ;
+logic [10:0] objectEndX [NUM_OF_LOGS-1:0];
 logic [10:0] objectEndY [NUM_OF_LOGS-1:0];
 always_comb
 	begin
 	//default values
-	//objectEndX = 0;
-	//objectEndY = 0;
 	drawing_X = 0;
 	drawing_Y = 0;
 	bCoord_X = 0;
@@ -93,22 +94,6 @@ always_comb
 						end
 				end
 	end
-//
-//
-//// Calculate object end boundaries
-//assign objectEndX	= (object_X_size + ObjectStartX);
-//assign objectEndY	= (object_Y_size + ObjectStartY);
-////
-////-- Signals drawing_X[Y] are active when object's coordinates are being crossed
-////
-////-- test if ooCoord is in the rectangle defined by Start and End 
-//
-//assign drawing_X	= ((oCoord_X  >= ObjectStartX) &&  (oCoord_X < objectEndX)) ? 1 : 0;
-//assign drawing_Y	= ((oCoord_Y  >= ObjectStartY) &&  (oCoord_Y < objectEndY)) ? 1 : 0;
-//
-//assign bCoord_X	= (drawing_X == 1 &&  drawing_Y == 1  )  ? (oCoord_X - ObjectStartX): 0;
-//assign bCoord_Y	= (drawing_X == 1 &&  drawing_Y == 1  )  ? (oCoord_Y - ObjectStartY): 0;
-
 
 
 always_ff@(posedge CLK or negedge RESETn)
