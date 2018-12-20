@@ -1,8 +1,7 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
-
-
+//the input for this module is the Y coordinate of the start of the bank in the game, 
+//and the current pixel which the VGA is requesting a color vector for
+//the module calculates whtether said pixel is within a bank and if so it outputs 
+//the correct color vector and creates a drawing request.
 
 module	endbank_draw	(	
 //		--////////////////////	Clock Input	 	////////////////////	

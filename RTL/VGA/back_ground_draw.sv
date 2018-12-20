@@ -1,9 +1,5 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
-
+//the module output is the background's color for a said pixel from the VGA conroller.
 module	back_ground_draw	(	
-//		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
 					input 	logic	[10:0]	oCoord_X,

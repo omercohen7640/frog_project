@@ -1,3 +1,7 @@
+//the input for this module is the coordinates(X and Y) of the start of the french in the game, 
+//and the current pixel which the VGA is requesting a color vector for
+//the module calculates whtether said pixel is within the french and if so it outputs 
+//the correct color vector and creates a drawing request.
 module french_draw (
 	   	input   logic   CLK,
 		input   logic   RESETn,

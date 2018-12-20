@@ -1,3 +1,7 @@
+//the input for this module is the X and Y coordinate of the start of the frog in the game, 
+//and the current pixel which the VGA is requesting a color vector for
+//the module calculates whtether said pixel is within a frog and if so it outputs 
+//the correct color vector and creates a drawing request.
 module frog_draw (
 	   	input   logic   CLK,
 		input   logic   RESETn,

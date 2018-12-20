@@ -1,13 +1,13 @@
-//-- Alex Grinshpun Apr 2017
-//-- Dudy Nov 13 2017
-// SystemVerilog version Alex Grinshpun May 2018
+//the module gets random signal and according to its sets the french direction.
+//the module output is the object's first pixel location (x and y coordinats)
+
 
 
 module	french_move	(	
-//		--////////////////////	Clock Input	 	////////////////////	
 					input		logic	CLK,
 					input		logic	RESETn,
-					input		logic	timer_done,
+					input		logic	timer_done,//signal by the VGA modules which means it finished scanning all the pixels in the screen,
+														//and starts a new cycle
 //					input		logic	X_direction,
 //					input		logic	y_direction,
 					input 	logic [3:0] random,
@@ -97,28 +97,28 @@ begin
 			counter <= counter - 1;
 		end
 		if (direction == UP) begin
-			if (ObjectStartY >= limit_up)
+			if (ObjectStartY >= limit_up)//top limit
 				begin
 					ObjectStartX <= ObjectStartX - move_x;
 					ObjectStartY <= ObjectStartY - move_y;
 				end
 			end
 		if (direction == DOWN) begin
-			if (ObjectStartY + french_size <= limit_down)
+			if (ObjectStartY + french_size <= limit_down)//bottom limit
 				begin
 					ObjectStartX <= ObjectStartX + move_x;
 					ObjectStartY <= ObjectStartY + move_y;
 				end
 			end
 		if (direction == RIGHT) begin
-			if (ObjectStartX + french_size <= limit_right)
+			if (ObjectStartX + french_size <= limit_right)//right limit
 				begin
 					ObjectStartX <= ObjectStartX + move_x;
 					ObjectStartY <= ObjectStartY + move_y;					
 				end
 			end
 		if (direction == LEFT) begin
-			if (ObjectStartX >= limit_left)
+			if (ObjectStartX >= limit_left)//left limit
 				begin
 					ObjectStartX <= ObjectStartX - move_x;
 					ObjectStartY <= ObjectStartY - move_y;

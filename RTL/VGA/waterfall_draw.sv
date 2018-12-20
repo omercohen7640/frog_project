@@ -1,5 +1,7 @@
-//waterfall object draw is static and sits at the left end of the screen always.
-
+//the input for this module is the Y coordinate of the start of the waterfall in the game, 
+//and the current pixel which the VGA is requesting a color vector for
+//the module calculates whtether said pixel is within a waterfall and if so it outputs 
+//the correct color vector and creates a drawing request.
 
 module	waterfall_object	(	
 //		--////////////////////	Clock Input	 	////////////////////	
